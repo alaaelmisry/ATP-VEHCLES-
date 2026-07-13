@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATP Vehicle Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+
+    <h1>🚗 ATP Vehicle Management</h1>
+
+    <!-- الإحصائيات العامة -->
+
+    <div class="stats">
+
+        <div class="card green">
+            <span id="workingCount">0</span>
+            <small>تعمل</small>
+        </div>
+
+        <div class="card red">
+            <span id="faultCount">0</span>
+            <small>متوقف</small>
+        </div>
+
+    </div>
+
+    <input
+        id="search"
+        type="text"
+        placeholder="ابحث برقم المركبة..."
+    >
+
+</header>
+
+
+<main>
+
+<div class="categories">
+
+    <!-- PRIVATE -->
+
+    <section class="category">
+
+        <h2>PRIVATE</h2>
+
+        <div class="section-stats">
+
+            <div class="mini-card">
+                <span id="privateTotal">0</span>
+                <small>الإجمالي</small>
+            </div>
+
+            <div class="mini-card green">
+                <span id="privateWorking">0</span>
+                <small>تعمل</small>
+            </div>
+
+            <div class="mini-card red">
+                <span id="privateFault">0</span>
+                <small>متوقف</small>
+            </div>
+
+        </div>
+
+        <div id="privateList" class="vehicle-list"></div>
+
+    </section>
+
+
+    <!-- TRUCKS -->
+
+    <section class="category">
+
+        <h2>TRUCKS</h2>
+
+        <div class="section-stats">
+
+            <div class="mini-card">
+                <span id="truckTotal">0</span>
+                <small>الإجمالي</small>
+            </div>
+
+            <div class="mini-card green">
+                <span id="truckWorking">0</span>
+                <small>تعمل</small>
+            </div>
+
+            <div class="mini-card red">
+                <span id="truckFault">0</span>
+                <small>متوقف</small>
+            </div>
+
+        </div>
+
+        <div id="truckList" class="vehicle-list"></div>
+
+    </section>
+
+
+    <!-- EQUIPMENTS -->
+
+    <section class="category">
+
+        <h2>EQUIPMENTS</h2>
+
+        <div class="section-stats">
+
+            <div class="mini-card">
+                <span id="equipmentTotal">0</span>
+                <small>الإجمالي</small>
+            </div>
+
+            <div class="mini-card green">
+                <span id="equipmentWorking">0</span>
+                <small>تعمل</small>
+            </div>
+
+            <div class="mini-card red">
+                <span id="equipmentFault">0</span>
+                <small>متوقف</small>
+            </div>
+
+        </div>
+
+        <div id="equipmentList" class="vehicle-list"></div>
+
+    </section>
+
+</div>
+
+</main>
+
+
+<!-- نافذة المركبة -->
+
+<div id="popup" class="popup hidden">
+
+    <div class="popup-box">
+
+        <h2 id="vehicleTitle"></h2>
+
+        <button onclick="editVehicleName()">
+            ✏️ تعديل الاسم
+        </button>
+
+        <button onclick="requestStatusChange('working')">
+            🟢 تعمل
+        </button>
+
+        <button onclick="requestStatusChange('fault')">
+            🔴 متوقف
+        </button>
+
+        <button onclick="editNotes()">
+            📩 سبب التوقف / ملاحظات
+        </button>
+
+        <button class="close" onclick="closeVehiclePopup()">
+            إغلاق
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- نافذة الرقم السري -->
+
+<div id="passwordPopup" class="popup hidden">
+
+    <div class="popup-box">
+
+        <h2>🔐 صلاحية المشرف</h2>
+
+        <input
+            id="passwordInput"
+            type="password"
+            placeholder="أدخل الرقم السري">
+
+        <button onclick="checkPassword()">
+            دخول
+        </button>
+
+        <button class="close" onclick="closePassword()">
+            إلغاء
+        </button>
+
+    </div>
+
+</div>
+
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
