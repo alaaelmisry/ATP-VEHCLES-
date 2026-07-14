@@ -1,10 +1,42 @@
+// ==========================================
+// ATP Fleet Management 3.0
+// البيانات الأساسية
+// ==========================================
+
 const vehicles = [];
 
-// ======================
+
+// ==========================================
+// دالة إنشاء مركبة
+// ==========================================
+
+function createVehicle(id, number, type) {
+
+    return {
+
+        id: id,
+
+        number: number,
+
+        type: type,
+
+        driver: "",
+
+        status: "working",
+
+        notes: "",
+
+        updatedAt: ""
+
+    };
+
+}
+// ==========================================
 // PRIVATE
-// ======================
+// ==========================================
 
 const privateNumbers = [
+
     "4552",
     "4553",
     "4554",
@@ -23,34 +55,32 @@ const privateNumbers = [
     "6032",
     "6033",
     "3162"
+
 ];
 
 privateNumbers.forEach((number, index) => {
 
-    vehicles.push({
+    vehicles.push(
 
-        id: index + 1,
+        createVehicle(
 
-        number: number,
+            index + 1,
 
-        driver: "",
+            number,
 
-        type: "private",
+            "private"
 
-        status: "working",
+        )
 
-        notes: ""
-
-    });
+    );
 
 });
-
-
-// ======================
+// ==========================================
 // TRUCKS
-// ======================
+// ==========================================
 
 const truckNumbers = [
+
     "7001",
     "7002",
     "7003",
@@ -86,47 +116,58 @@ const truckNumbers = [
     "7033",
     "7034",
     "7035"
+
 ];
 
 truckNumbers.forEach((number, index) => {
 
-    vehicles.push({
+    vehicles.push(
 
-        id: 31 + index,
+        createVehicle(
 
-        number: number,
+            privateNumbers.length + index + 1,
 
-        driver: "",
+            number,
 
-        type: "truck",
+            "truck"
 
-        status: "working",
+        )
 
-        notes: ""
-
-    });
+    );
 
 });
-// ======================
+
+
+// ==========================================
 // EQUIPMENTS
-// ======================
+// ==========================================
 
 for (let i = 1; i <= 35; i++) {
 
-    vehicles.push({
+    vehicles.push(
 
-        id: 66 + i,
+        createVehicle(
 
-        number: "EQ-" + String(i).padStart(3, "0"),
+            privateNumbers.length +
+            truckNumbers.length +
+            i,
 
-        driver: "",
+            "EQ-" + String(i).padStart(3, "0"),
 
-        type: "equipment",
+            "equipment"
 
-        status: "working",
+        )
 
-        notes: ""
-
-    });
+    );
 
 }
+
+
+// ==========================================
+// إجمالي المركبات
+// ==========================================
+
+console.log(
+    "Total Vehicles:",
+    vehicles.length
+);
