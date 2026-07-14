@@ -1,206 +1,70 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Tahoma,Arial,sans-serif;
-}
+/*==================================
+رأس الجدول
+==================================*/
 
-body{
-    background:#f3f4f6;
-    direction:rtl;
-}
-
-
-/*==========================
-HEADER
-==========================*/
-
-header{
-
-    background:#1f2937;
-    color:#fff;
-    padding:20px;
-    text-align:center;
-
-}
-
-header h1{
-
-    font-size:28px;
-    margin-bottom:20px;
-
-}
-
-
-/*==========================
-الإحصائيات العامة
-==========================*/
-
-.stats{
-
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    margin-bottom:20px;
-
-}
-
-.card{
-
-    width:140px;
-    padding:15px;
-    border-radius:12px;
-    color:#fff;
-    text-align:center;
-    font-size:24px;
-    font-weight:bold;
-
-}
-
-.card small{
-
-    display:block;
-    margin-top:5px;
-    font-size:14px;
-    font-weight:normal;
-
-}
-
-.green{
-
-    background:#16a34a;
-
-}
-
-.red{
-
-    background:#dc2626;
-
-}
-
-
-/*==========================
-البحث
-==========================*/
-
-#search{
-
-    width:95%;
-    max-width:450px;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    font-size:16px;
-
-}
-
-
-/*==========================
-الأقسام
-==========================*/
-
-.categories{
+.vehicle-header{
 
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-    padding:15px;
+
+    grid-template-columns:1fr 1fr 1fr;
+
+    gap:8px;
+
+    margin-bottom:8px;
 
 }
 
-.category{
-
-    background:#fff;
-    border-radius:14px;
-    padding:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,.15);
-
-}
-
-.category h2{
+.vehicle-header div{
 
     background:#111827;
+
     color:#fff;
+
     text-align:center;
+
     padding:10px;
-    border-radius:10px;
-    margin-bottom:10px;
-    font-size:20px;
 
-}
-
-
-/*==========================
-إحصائيات كل قسم
-==========================*/
-
-.section-stats{
-
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:6px;
-    margin-bottom:10px;
-
-}
-
-.mini-card{
-
-    background:#374151;
-    color:#fff;
     border-radius:8px;
-    text-align:center;
-    padding:8px;
 
-}
+    font-size:13px;
 
-.mini-card span{
-
-    display:block;
-    font-size:18px;
     font-weight:bold;
 
 }
 
-.mini-card small{
 
-    font-size:11px;
-
-}
-
-
-/*==========================
-بطاقات المركبات
-==========================*/
+/*==================================
+قائمة المركبات
+==================================*/
 
 .vehicle-list{
 
-    display:grid;
+    display:flex;
 
-    grid-template-columns:1fr;
+    flex-direction:column;
 
-    gap:10px;
+    gap:8px;
 
 }
 
+
+/*==================================
+بطاقة المركبة
+==================================*/
+
 .vehicle-card{
 
-    position:relative;
+    display:grid;
 
-    width:100%;
-
-    min-height:70px;
-
-    border-radius:12px;
-
-    display:flex;
-
-    justify-content:center;
+    grid-template-columns:1fr 1fr 1fr;
 
     align-items:center;
 
-    font-weight:bold;
+    text-align:center;
 
-    font-size:18px;
+    border-radius:10px;
+
+    overflow:hidden;
 
     cursor:pointer;
 
@@ -208,16 +72,42 @@ header h1{
 
     color:#fff;
 
+    min-height:58px;
+
+    font-weight:bold;
+
 }
+
 
 .vehicle-card:hover{
 
-    transform:scale(1.05);
+    transform:scale(1.01);
 
 }
 
 
-/* ألوان الحالة */
+/*==================================
+خلايا البطاقة
+==================================*/
+
+.vehicle-cell{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:12px 8px;
+
+    min-height:58px;
+
+    word-break:break-word;
+
+}
+/*==================================
+ألوان حالة المركبة
+==================================*/
 
 .vehicle-working{
 
@@ -232,266 +122,99 @@ header h1{
 }
 
 
-/* رقم المركبة */
+/*==================================
+الفواصل بين الأعمدة
+==================================*/
 
-.vehicle-number{
+.vehicle-card .vehicle-cell{
 
-    font-size:15px;
-    font-weight:bold;
+    border-left:1px solid rgba(255,255,255,.25);
+
+}
+
+.vehicle-card .vehicle-cell:last-child{
+
+    border-left:none;
 
 }
 
 
-/* أيقونة الملاحظات */
+/*==================================
+النصوص الطويلة
+==================================*/
 
-.note-icon{
+.vehicle-notes{
 
-    position:absolute;
+    white-space:nowrap;
 
-    top:4px;
+    overflow:hidden;
 
-    left:6px;
-
-    font-size:15px;
-
-}
-/*==========================
-النوافذ
-==========================*/
-
-.popup{
-
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.45);
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    z-index:999;
-}
-
-.hidden{
-
-    display:none;
-
-}
-
-.popup-box{
-
-    background:#fff;
-    width:92%;
-    max-width:360px;
-
-    border-radius:15px;
-
-    padding:20px;
-
-    box-shadow:0 10px 30px rgba(0,0,0,.25);
-
-}
-
-.popup-box h2{
-
-    text-align:center;
-    margin-bottom:15px;
-    color:#111827;
-
-}
-
-.popup-box input{
-
-    width:100%;
-
-    padding:12px;
-
-    border:1px solid #d1d5db;
-
-    border-radius:8px;
-
-    margin-bottom:12px;
-
-    font-size:15px;
-
-}
-
-.popup-box button{
-
-    width:100%;
-
-    padding:12px;
-
-    margin-bottom:10px;
-
-    border:none;
-
-    border-radius:8px;
-
-    cursor:pointer;
-
-    font-size:15px;
-
-    font-weight:bold;
-
-    transition:.2s;
-
-}
-
-.popup-box button:hover{
-
-    opacity:.9;
-
-}
-
-.popup-box button:nth-of-type(1){
-
-    background:#2563eb;
-    color:#fff;
-
-}
-
-.popup-box button:nth-of-type(2){
-
-    background:#16a34a;
-    color:#fff;
-
-}
-
-.popup-box button:nth-of-type(3){
-
-    background:#dc2626;
-    color:#fff;
-
-}
-
-.popup-box button:nth-of-type(4){
-
-    background:#f59e0b;
-    color:#fff;
-
-}
-
-.close{
-
-    background:#374151 !important;
-    color:#fff;
+    text-overflow:ellipsis;
 
 }
 
 
-/*==========================
+/*==================================
+تأثير الضغط
+==================================*/
+
+.vehicle-card:active{
+
+    transform:scale(.98);
+
+}
+
+
+/*==================================
 الجوال
-==========================*/
+==================================*/
 
 @media (max-width:900px){
 
-    .categories{
-
-        grid-template-columns:repeat(3,1fr);
-
-        gap:6px;
-
-        padding:6px;
-
-    }
-
-    .category{
-
-        padding:6px;
-
-    }
-
-    .category h2{
-
-        font-size:12px;
-
-        padding:7px;
-
-    }
-
-    .section-stats{
+    .vehicle-header{
 
         gap:4px;
 
     }
 
-    .mini-card{
+    .vehicle-header div{
 
-        padding:6px;
+        padding:8px 4px;
+
+        font-size:11px;
 
     }
 
-    .mini-card span{
+    .vehicle-card{
+
+        min-height:50px;
+
+    }
+
+    .vehicle-cell{
+
+        min-height:50px;
+
+        padding:8px 4px;
+
+    }
+
+    .vehicle-number{
 
         font-size:13px;
 
     }
 
-    .mini-card small{
+    .vehicle-driver{
 
-        font-size:9px;
+        font-size:12px;
 
     }
 
-  .vehicle-list{
-
-    grid-template-columns:1fr;
-
-    gap:8px;
-
-}
-
-.vehicle-card{
-
-    width:100%;
-
-    min-height:60px;
-
-    border-radius:10px;
-
-    font-size:16px;
-
-}
-    .vehicle-number{
+    .vehicle-notes{
 
         font-size:11px;
 
     }
-
-    .note-icon{
-
-        font-size:11px;
-
-        top:2px;
-
-        left:3px;
-
-    }
-
-    .card{
-
-        width:110px;
-
-        font-size:18px;
-
-    }
-
-}
-
-
-/*==========================
-حركات بسيطة
-==========================*/
-
-.vehicle-card:active{
-
-    transform:scale(.95);
-
-}
-
-button:active{
-
-    transform:scale(.98);
 
 }
