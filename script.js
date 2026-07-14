@@ -93,6 +93,7 @@ const cancelButton =
 // المركبة المحددة
 
 let selectedVehicle = null;
+const ADMIN_PASSWORD = "16896";
 //==================================================
 // حفظ البيانات
 //==================================================
@@ -411,6 +412,124 @@ function openVehicleModal(vehicle){
 saveButton.addEventListener(
     "click",
     function(){
+
+
+        if(!selectedVehicle)
+            return;
+
+
+
+        let changeProtectedData = false;
+
+
+
+        // فحص رقم المركبة
+
+        if(
+            modalNumber.value.trim()
+            !== selectedVehicle.number
+        ){
+
+            changeProtectedData = true;
+
+        }
+
+
+
+        // فحص اسم السائق
+
+        if(
+            modalDriver.value.trim()
+            !== selectedVehicle.driver
+        ){
+
+            changeProtectedData = true;
+
+        }
+
+
+
+        // فحص الحالة
+
+        if(
+            modalStatus.value
+            !== selectedVehicle.status
+        ){
+
+            changeProtectedData = true;
+
+        }
+
+
+
+        // طلب الرقم السري
+
+        if(changeProtectedData){
+
+
+            let password =
+                prompt(
+                    "🔐 أدخل الرقم السري لتعديل البيانات الأساسية"
+                );
+
+
+
+            if(password !== ADMIN_PASSWORD){
+
+
+                alert(
+                    "❌ الرقم السري غير صحيح"
+                );
+
+
+                return;
+
+
+            }
+
+
+        }
+
+
+
+        // حفظ البيانات
+
+        selectedVehicle.number =
+            modalNumber.value.trim();
+
+
+
+        selectedVehicle.driver =
+            modalDriver.value.trim();
+
+
+
+        selectedVehicle.status =
+            modalStatus.value;
+
+
+
+        selectedVehicle.notes =
+            modalNotes.value.trim();
+
+
+
+        selectedVehicle.updatedAt =
+            new Date().toLocaleString("ar-SA");
+
+
+
+        saveData();
+
+
+        displayVehicles();
+
+
+        closeModal();
+
+
+    }
+);
 
 
         if(!selectedVehicle)
