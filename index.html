@@ -1,252 +1,225 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATP Vehicle Management</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ATP Fleet Management</title>
+
     <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-<header>
+<header class="header">
 
-    <h1>🚗 ATP Vehicle Management</h1>
+    <h1>🚗 ATP Fleet Management</h1>
 
-    <!-- الإحصائيات العامة -->
+    <p>إدارة المركبات والمعدات</p>
 
-    <div class="stats">
+    <input
+        id="search"
+        type="text"
+        placeholder="ابحث برقم المركبة أو اسم السائق..."
+    >
 
-        <div class="card green">
-            <span id="workingCount">0</span>
+</header>
+
+
+<main id="mainContainer">
+    <section class="category">
+
+    <h2>PRIVATE</h2>
+
+    <div class="section-stats">
+
+        <div class="stat-card">
+
+            <span id="privateTotal">0</span>
+
+            <small>الإجمالي</small>
+
+        </div>
+
+        <div class="stat-card working">
+
+            <span id="privateWorking">0</span>
+
+            <small>تعمل</small>
+
+        </div>
+
+        <div class="stat-card fault">
+
+            <span id="privateFault">0</span>
+
+            <small>متوقف</small>
+
+        </div>
+
+    </div>
+
+    <div class="table-header">
+
+        <div>رقم المركبة</div>
+
+        <div>اسم السائق</div>
+
+        <div>الملاحظات</div>
+
+    </div>
+
+    <div
+        id="privateList"
+        class="vehicle-list">
+
+    </div>
+
+</section>
+
+    <!-- ===================================== -->
+<!-- TRUCKS -->
+<!-- ===================================== -->
+
+<section class="category">
+
+    <h2>TRUCKS</h2>
+
+    <div class="section-stats">
+
+        <div class="stat-card">
+            <span id="truckTotal">0</span>
+            <small>الإجمالي</small>
+        </div>
+
+        <div class="stat-card working">
+            <span id="truckWorking">0</span>
             <small>تعمل</small>
         </div>
 
-        <div class="card red">
-            <span id="faultCount">0</span>
+        <div class="stat-card fault">
+            <span id="truckFault">0</span>
             <small>متوقف</small>
         </div>
 
     </div>
 
-    <input
-        id="search"
-        type="text"
-        placeholder="ابحث برقم المركبة..."
-    >
+    <div class="table-header">
 
-</header>
+        <div>رقم المركبة</div>
 
-<main>
+        <div>اسم السائق</div>
 
-<div class="categories">
-
-    <!-- ========================= -->
-    <!-- PRIVATE -->
-    <!-- ========================= -->
-
-    <section class="category">
-
-        <h2>PRIVATE</h2>
-
-        <div class="section-stats">
-
-            <div class="mini-card">
-                <span id="privateTotal">0</span>
-                <small>الإجمالي</small>
-            </div>
-
-            <div class="mini-card green">
-                <span id="privateWorking">0</span>
-                <small>تعمل</small>
-            </div>
-
-            <div class="mini-card red">
-                <span id="privateFault">0</span>
-                <small>متوقف</small>
-            </div>
-
-        </div>
-
-        <!-- رؤوس الأعمدة -->
-
-        <div class="vehicle-header">
-
-            <div>رقم المركبة</div>
-
-            <div>اسم السائق</div>
-
-            <div>الملاحظات</div>
-
-        </div>
-
-        <!-- قائمة المركبات -->
-
-        <div
-            id="privateList"
-            class="vehicle-list">
-        </div>
-
-    </section>
-
-    <!-- ========================= -->
-    <!-- TRUCKS -->
-    <!-- ========================= -->
-
-    <section class="category">
-
-        <h2>TRUCKS</h2>
-
-        <div class="section-stats">
-
-            <div class="mini-card">
-                <span id="truckTotal">0</span>
-                <small>الإجمالي</small>
-            </div>
-
-            <div class="mini-card green">
-                <span id="truckWorking">0</span>
-                <small>تعمل</small>
-            </div>
-
-            <div class="mini-card red">
-                <span id="truckFault">0</span>
-                <small>متوقف</small>
-            </div>
-
-        </div>
-
-        <!-- رؤوس الأعمدة -->
-
-        <div class="vehicle-header">
-
-            <div>رقم المركبة</div>
-
-            <div>اسم السائق</div>
-
-            <div>الملاحظات</div>
-
-        </div>
-
-        <!-- قائمة المركبات -->
-
-        <div
-            id="truckList"
-            class="vehicle-list">
-        </div>
-
-    </section>
-    <!-- ========================= -->
-    <!-- EQUIPMENTS -->
-    <!-- ========================= -->
-
-    <section class="category">
-
-        <h2>EQUIPMENTS</h2>
-
-        <div class="section-stats">
-
-            <div class="mini-card">
-                <span id="equipmentTotal">0</span>
-                <small>الإجمالي</small>
-            </div>
-
-            <div class="mini-card green">
-                <span id="equipmentWorking">0</span>
-                <small>تعمل</small>
-            </div>
-
-            <div class="mini-card red">
-                <span id="equipmentFault">0</span>
-                <small>متوقف</small>
-            </div>
-
-        </div>
-
-        <!-- رؤوس الأعمدة -->
-
-        <div class="vehicle-header">
-
-            <div>رقم المركبة</div>
-
-            <div>اسم السائق</div>
-
-            <div>الملاحظات</div>
-
-        </div>
-
-        <!-- قائمة المعدات -->
-
-        <div
-            id="equipmentList"
-            class="vehicle-list">
-        </div>
-
-    </section>
-
-</div>
-
-</main>
-
-<!-- ========================= -->
-<!-- نافذة بيانات المركبة -->
-<!-- ========================= -->
-
-<div id="popup" class="popup hidden">
-
-    <div class="popup-box">
-
-        <h2 id="vehicleTitle"></h2>
-
-        <button onclick="editDriverName()">
-            👤 تعديل اسم السائق
-        </button>
-
-        <button onclick="requestStatusChange('working')">
-            🟢 تعمل
-        </button>
-
-        <button onclick="requestStatusChange('fault')">
-            🔴 متوقف
-        </button>
-
-        <button onclick="editNotes()">
-            📝 تعديل الملاحظات
-        </button>
-
-        <button class="close" onclick="closeVehiclePopup()">
-            إغلاق
-        </button>
+        <div>الملاحظات</div>
 
     </div>
 
-</div>
+    <div id="truckList" class="vehicle-list"></div>
 
-<!-- ========================= -->
-<!-- نافذة الرقم السري -->
-<!-- ========================= -->
+</section>
 
-<div id="passwordPopup" class="popup hidden">
 
-    <div class="popup-box">
+<!-- ===================================== -->
+<!-- EQUIPMENTS -->
+<!-- ===================================== -->
 
-        <h2>🔐 صلاحية المشرف</h2>
+<section class="category">
+
+    <h2>EQUIPMENTS</h2>
+
+    <div class="section-stats">
+
+        <div class="stat-card">
+            <span id="equipmentTotal">0</span>
+            <small>الإجمالي</small>
+        </div>
+
+        <div class="stat-card working">
+            <span id="equipmentWorking">0</span>
+            <small>تعمل</small>
+        </div>
+
+        <div class="stat-card fault">
+            <span id="equipmentFault">0</span>
+            <small>متوقف</small>
+        </div>
+
+    </div>
+
+    <div class="table-header">
+
+        <div>رقم المركبة</div>
+
+        <div>اسم السائق</div>
+
+        <div>الملاحظات</div>
+
+    </div>
+
+    <div id="equipmentList" class="vehicle-list"></div>
+
+</section>
+
+</main>
+
+    <!-- ===================================== -->
+<!-- نافذة تعديل بيانات المركبة -->
+<!-- ===================================== -->
+
+<div id="vehicleModal" class="modal hidden">
+
+    <div class="modal-content">
+
+        <h2>بيانات المركبة</h2>
+
+        <label>رقم المركبة</label>
 
         <input
-            id="passwordInput"
-            type="password"
-            placeholder="أدخل الرقم السري">
+            id="modalNumber"
+            type="text"
+            readonly>
 
-        <button onclick="checkPassword()">
-            دخول
-        </button>
+        <label>اسم السائق</label>
 
-        <button
-            class="close"
-            onclick="closePassword()">
-            إلغاء
-        </button>
+        <input
+            id="modalDriver"
+            type="text"
+            placeholder="أدخل اسم السائق">
+
+        <label>حالة المركبة</label>
+
+        <select id="modalStatus">
+
+            <option value="working">تعمل</option>
+
+            <option value="fault">متوقف</option>
+
+        </select>
+
+        <label>الملاحظات</label>
+
+        <textarea
+            id="modalNotes"
+            rows="4"
+            placeholder="اكتب الملاحظات هنا"></textarea>
+
+        <div class="modal-buttons">
+
+            <button id="saveVehicle">
+                💾 حفظ
+            </button>
+
+            <button id="cancelVehicle">
+                إلغاء
+            </button>
+
+        </div>
 
     </div>
 
@@ -256,4 +229,5 @@
 <script src="script.js"></script>
 
 </body>
+
 </html>
