@@ -33,7 +33,7 @@ privateNumbers.forEach((number, index) => {
 
         number: number,
 
-        name: "",
+        driver: "",
 
         type: "private",
 
@@ -96,7 +96,7 @@ truckNumbers.forEach((number, index) => {
 
         number: number,
 
-        name: "",
+        driver: "",
 
         type: "truck",
 
@@ -119,7 +119,7 @@ for (let i = 1; i <= 35; i++) {
 
         number: "EQ-" + String(i).padStart(3, "0"),
 
-        name: "",
+        driver: "",
 
         type: "equipment",
 
