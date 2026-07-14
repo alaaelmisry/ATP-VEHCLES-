@@ -1,41 +1,246 @@
-/*==================================
-رأس الجدول
-==================================*/
+/*==================================================
+ ATP Fleet Management 3.0
+ شركة الراشد للتقنية والطاقة
+==================================================*/
 
-.vehicle-header{
+*{
 
-    display:grid;
+    margin:0;
 
-    grid-template-columns:1fr 1fr 1fr;
+    padding:0;
 
-    gap:8px;
+    box-sizing:border-box;
 
-    margin-bottom:8px;
+    font-family:Tahoma,Arial,sans-serif;
 
 }
 
-.vehicle-header div{
+body{
+
+    background:#f3f4f6;
+
+    direction:rtl;
+
+    color:#1f2937;
+
+}
+
+
+/*==================================================
+HEADER
+==================================================*/
+
+.header{
 
     background:#111827;
 
     color:#fff;
 
+    padding:25px;
+
     text-align:center;
 
-    padding:10px;
+    box-shadow:0 4px 15px rgba(0,0,0,.15);
 
-    border-radius:8px;
+}
 
-    font-size:13px;
+.header h1{
+
+    font-size:30px;
+
+    margin-bottom:8px;
+
+}
+
+.header p{
+
+    color:#d1d5db;
+
+    margin-bottom:20px;
+
+    font-size:15px;
+
+}
+
+
+/*==================================================
+SEARCH
+==================================================*/
+
+#search{
+
+    width:100%;
+
+    max-width:500px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:16px;
+
+    outline:none;
+
+}
+
+
+/*==================================================
+MAIN
+==================================================*/
+
+#mainContainer{
+
+    padding:20px;
+
+}
+
+
+/*==================================================
+SECTIONS
+==================================================*/
+
+.category{
+
+    background:#ffffff;
+
+    border-radius:16px;
+
+    margin-bottom:30px;
+
+    padding:20px;
+
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
+
+}
+
+.category h2{
+
+    margin-bottom:20px;
+
+    text-align:center;
+
+    font-size:22px;
+
+    color:#111827;
+
+}
+/*==================================================
+SECTION STATS
+==================================================*/
+
+.section-stats{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:10px;
+
+    margin-bottom:15px;
+
+}
+
+.stat-card{
+
+    background:#e5e7eb;
+
+    border-radius:12px;
+
+    padding:15px;
+
+    text-align:center;
+
+}
+
+.stat-card span{
+
+    display:block;
+
+    font-size:26px;
 
     font-weight:bold;
 
 }
 
+.stat-card small{
 
-/*==================================
-قائمة المركبات
-==================================*/
+    display:block;
+
+    margin-top:6px;
+
+    font-size:13px;
+
+}
+
+.working{
+
+    background:#16a34a;
+
+    color:#fff;
+
+}
+
+.fault{
+
+    background:#dc2626;
+
+    color:#fff;
+
+}
+/*==================================================
+TABLE HEADER
+==================================================*/
+
+.table-header{
+
+    display:grid;
+
+    grid-template-columns:70px 1fr 1.3fr 1.5fr;
+
+    align-items:center;
+
+    background:#1f2937;
+
+    color:#fff;
+
+    border-radius:10px;
+
+    font-weight:bold;
+
+    margin-bottom:8px;
+
+    position:sticky;
+
+    top:10px;
+
+    z-index:50;
+
+    overflow:hidden;
+
+}
+
+.table-header div{
+
+    text-align:center;
+
+    padding:14px 10px;
+
+    border-left:1px solid rgba(255,255,255,.15);
+
+}
+
+.table-header div:last-child{
+
+    border-left:none;
+
+}
+
+
+/*==================================================
+VEHICLE LIST
+==================================================*/
 
 .vehicle-list{
 
@@ -43,52 +248,57 @@
 
     flex-direction:column;
 
-    gap:8px;
+    gap:6px;
 
 }
 
 
-/*==================================
-بطاقة المركبة
-==================================*/
+/*==================================================
+VEHICLE ROW
+==================================================*/
 
-.vehicle-card{
+.vehicle-row{
 
     display:grid;
 
-    grid-template-columns:1fr 1fr 1fr;
+    grid-template-columns:70px 1fr 1.3fr 1.5fr;
 
     align-items:center;
 
-    text-align:center;
+    background:#ffffff;
+
+    border:1px solid #e5e7eb;
 
     border-radius:10px;
 
-    overflow:hidden;
+    transition:.2s;
 
     cursor:pointer;
 
-    transition:.2s;
+    overflow:hidden;
 
-    color:#fff;
+}
 
-    min-height:58px;
+.vehicle-row:hover{
 
-    font-weight:bold;
+    background:#f8fafc;
+
+    transform:translateY(-1px);
+
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+
+}
+
+.vehicle-row:active{
+
+    transform:scale(.99);
 
 }
 
 
-.vehicle-card:hover{
-
-    transform:scale(1.01);
-
-}
-
-
-/*==================================
-خلايا البطاقة
-==================================*/
+/*==================================================
+CELLS
+==================================================*/
 
 .vehicle-cell{
 
@@ -98,52 +308,81 @@
 
     align-items:center;
 
-    padding:12px 8px;
+    text-align:center;
+
+    padding:14px 10px;
 
     min-height:58px;
+
+    border-left:1px solid #e5e7eb;
 
     word-break:break-word;
 
 }
-/*==================================
-ألوان حالة المركبة
-==================================*/
 
-.vehicle-working{
+.vehicle-cell:last-child{
+
+    border-left:none;
+
+}
+/*==================================================
+STATUS
+==================================================*/
+
+.status-dot{
+
+    width:14px;
+
+    height:14px;
+
+    border-radius:50%;
+
+}
+
+.status-working{
 
     background:#16a34a;
 
 }
 
-.vehicle-fault{
+.status-fault{
 
     background:#dc2626;
 
 }
 
 
-/*==================================
-الفواصل بين الأعمدة
-==================================*/
+/*==================================================
+NUMBER
+==================================================*/
 
-.vehicle-card .vehicle-cell{
+.vehicle-number{
 
-    border-left:1px solid rgba(255,255,255,.25);
+    font-weight:bold;
 
-}
-
-.vehicle-card .vehicle-cell:last-child{
-
-    border-left:none;
+    font-size:16px;
 
 }
 
 
-/*==================================
-النصوص الطويلة
-==================================*/
+/*==================================================
+DRIVER
+==================================================*/
+
+.vehicle-driver{
+
+    font-size:15px;
+
+}
+
+
+/*==================================================
+NOTES
+==================================================*/
 
 .vehicle-notes{
+
+    color:#6b7280;
 
     white-space:nowrap;
 
@@ -152,68 +391,245 @@
     text-overflow:ellipsis;
 
 }
+/*==================================================
+MODAL
+==================================================*/
 
+.modal{
 
-/*==================================
-تأثير الضغط
-==================================*/
+    position:fixed;
 
-.vehicle-card:active{
+    inset:0;
 
-    transform:scale(.98);
+    background:rgba(0,0,0,.45);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+
+    z-index:999;
+
+}
+
+.hidden{
+
+    display:none;
+
+}
+
+.modal-content{
+
+    width:100%;
+
+    max-width:500px;
+
+    background:#ffffff;
+
+    border-radius:18px;
+
+    padding:25px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.20);
+
+}
+
+.modal-content h2{
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+    color:#111827;
+
+}
+
+.modal-content label{
+
+    display:block;
+
+    margin-bottom:6px;
+
+    margin-top:15px;
+
+    font-weight:bold;
+
+    color:#374151;
+
+}
+
+.modal-content input,
+
+.modal-content select,
+
+.modal-content textarea{
+
+    width:100%;
+
+    padding:12px;
+
+    border:1px solid #d1d5db;
+
+    border-radius:10px;
+
+    font-size:15px;
+
+    outline:none;
+
+}
+
+.modal-content textarea{
+
+    resize:vertical;
+
+    min-height:100px;
 
 }
 
 
-/*==================================
-الجوال
-==================================*/
+/*==================================================
+BUTTONS
+==================================================*/
 
-@media (max-width:900px){
+.modal-buttons{
 
-    .vehicle-header{
+    display:flex;
 
-        gap:4px;
+    gap:10px;
+
+    margin-top:25px;
+
+}
+
+.modal-buttons button{
+
+    flex:1;
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:13px;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+#saveVehicle{
+
+    background:#16a34a;
+
+    color:#fff;
+
+}
+
+#cancelVehicle{
+
+    background:#6b7280;
+
+    color:#fff;
+
+}
+
+.modal-buttons button:hover{
+
+    opacity:.9;
+
+}
+/*==================================================
+MOBILE
+==================================================*/
+
+@media(max-width:900px){
+
+    #mainContainer{
+
+        padding:10px;
 
     }
 
-    .vehicle-header div{
+    .category{
 
-        padding:8px 4px;
+        padding:12px;
+
+    }
+
+    .category h2{
+
+        font-size:18px;
+
+    }
+
+    .section-stats{
+
+        gap:6px;
+
+    }
+
+    .stat-card{
+
+        padding:10px;
+
+    }
+
+    .stat-card span{
+
+        font-size:18px;
+
+    }
+
+    .table-header{
+
+        grid-template-columns:55px .9fr 1fr 1.2fr;
+
+    }
+
+    .vehicle-row{
+
+        grid-template-columns:55px .9fr 1fr 1.2fr;
+
+    }
+
+    .table-header div{
+
+        padding:10px 4px;
 
         font-size:11px;
-
-    }
-
-    .vehicle-card{
-
-        min-height:50px;
 
     }
 
     .vehicle-cell{
 
-        min-height:50px;
+        padding:10px 4px;
 
-        padding:8px 4px;
+        font-size:11px;
 
     }
 
     .vehicle-number{
 
-        font-size:13px;
+        font-size:12px;
 
     }
 
     .vehicle-driver{
 
-        font-size:12px;
+        font-size:11px;
 
     }
 
     .vehicle-notes{
 
-        font-size:11px;
+        font-size:10px;
 
     }
 
