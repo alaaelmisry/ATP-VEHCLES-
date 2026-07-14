@@ -37,7 +37,7 @@ let requestedStatus = null;
 // عرض المركبات
 // =========================
 
-function displayVehicles(list = vehicles) {
+function displayVehicles(list = vehicles){
 
     privateList.innerHTML = "";
     truckList.innerHTML = "";
@@ -58,36 +58,49 @@ function displayVehicles(list = vehicles) {
     let eWorking = 0;
     let eFault = 0;
 
-    list.forEach(vehicle => {
+    list.forEach(vehicle=>{
 
-        if (vehicle.status === "working")
+        if(vehicle.status==="working")
             working++;
         else
             fault++;
 
-        let card = document.createElement("div");
+        const card=document.createElement("div");
 
-        card.className =
-            "vehicle-card " +
-            (vehicle.status === "working"
+        card.className=
+            "vehicle-card "+
+            (vehicle.status==="working"
                 ? "vehicle-working"
                 : "vehicle-fault");
 
-        let noteIcon =
-            vehicle.notes && vehicle.notes.trim() !== ""
-                ? "<span class='note-icon'>📩</span>"
-                : "";
+        const driver=
+            vehicle.driver && vehicle.driver.trim()!==""
+            ? vehicle.driver
+            : "-";
 
-        card.innerHTML = `
-            ${noteIcon}
-            <div class="vehicle-number">
+        const notes=
+            vehicle.notes && vehicle.notes.trim()!==""
+            ? vehicle.notes
+            : "-";
+
+        card.innerHTML=`
+
+            <div class="vehicle-cell vehicle-number">
                 ${vehicle.number}
             </div>
+
+            <div class="vehicle-cell vehicle-driver">
+                ${driver}
+            </div>
+
+            <div class="vehicle-cell vehicle-notes">
+                ${notes}
+            </div>
+
         `;
 
-        card.onclick = () => openPopup(vehicle);
-
-        switch (vehicle.type) {
+        card.onclick=()=>openPopup(vehicle);
+        switch(vehicle.type){
 
             case "private":
 
@@ -95,12 +108,13 @@ function displayVehicles(list = vehicles) {
 
                 pTotal++;
 
-                if (vehicle.status === "working")
+                if(vehicle.status==="working")
                     pWorking++;
                 else
                     pFault++;
 
                 break;
+
 
             case "truck":
 
@@ -108,12 +122,13 @@ function displayVehicles(list = vehicles) {
 
                 tTotal++;
 
-                if (vehicle.status === "working")
+                if(vehicle.status==="working")
                     tWorking++;
                 else
                     tFault++;
 
                 break;
+
 
             case "equipment":
 
@@ -121,20 +136,25 @@ function displayVehicles(list = vehicles) {
 
                 eTotal++;
 
-                if (vehicle.status === "working")
+                if(vehicle.status==="working")
                     eWorking++;
                 else
                     eFault++;
 
                 break;
+
         }
 
     });
 
+
+    // =========================
     // الإحصائيات العامة
+    // =========================
 
     workingCount.textContent = working;
     faultCount.textContent = fault;
+
 
     // PRIVATE
 
@@ -142,11 +162,13 @@ function displayVehicles(list = vehicles) {
     privateWorking.textContent = pWorking;
     privateFault.textContent = pFault;
 
+
     // TRUCKS
 
     truckTotal.textContent = tTotal;
     truckWorking.textContent = tWorking;
     truckFault.textContent = tFault;
+
 
     // EQUIPMENTS
 
@@ -170,21 +192,25 @@ function openPopup(vehicle){
 }
 
 
-
 // =========================
-// تعديل اسم المركبة
+// تعديل اسم السائق
 // =========================
 
-function editVehicleName(){
+function editDriverName(){
 
-    let newName = prompt(
-        "أدخل اسم المركبة:",
-        selectedVehicle.name || ""
+    let newDriver = prompt(
+
+        "أدخل اسم السائق:",
+
+        selectedVehicle.driver || ""
+
     );
 
-    if(newName !== null){
+    if(newDriver !== null){
 
-        selectedVehicle.name = newName.trim();
+        selectedVehicle.driver = newDriver.trim();
+
+        saveData();
 
         displayVehicles();
 
@@ -205,8 +231,11 @@ function requestStatusChange(status){
     if(status === "fault"){
 
         let reason = prompt(
+
             "اكتب سبب توقف المركبة:",
+
             selectedVehicle.notes || ""
+
         );
 
         if(reason === null)
@@ -237,22 +266,24 @@ function requestStatusChange(status){
 function editNotes(){
 
     let note = prompt(
+
         "الملاحظات:",
+
         selectedVehicle.notes || ""
+
     );
 
     if(note !== null){
 
         selectedVehicle.notes = note.trim();
 
+        saveData();
+
         displayVehicles();
 
     }
 
 }
-
-
-
 // =========================
 // التحقق من الرقم السري
 // =========================
@@ -269,6 +300,8 @@ function checkPassword(){
 
     selectedVehicle.status = requestedStatus;
 
+    saveData();
+
     displayVehicles();
 
     passwordPopup.classList.add("hidden");
@@ -276,7 +309,6 @@ function checkPassword(){
     popup.classList.add("hidden");
 
 }
-
 
 
 // =========================
@@ -294,42 +326,48 @@ function closePassword(){
     passwordPopup.classList.add("hidden");
 
 }
+
+
 // =========================
 // حفظ البيانات
 // =========================
 
-function saveData() {
+function saveData(){
 
     localStorage.setItem(
+
         "ATP_VEHICLES",
+
         JSON.stringify(vehicles)
+
     );
 
 }
-
 
 
 // =========================
 // استرجاع البيانات
 // =========================
 
-function loadData() {
+function loadData(){
 
     const data = localStorage.getItem("ATP_VEHICLES");
 
-    if (!data) return;
+    if(!data) return;
 
     const savedVehicles = JSON.parse(data);
 
-    savedVehicles.forEach(saved => {
+    savedVehicles.forEach(saved=>{
 
-        const vehicle = vehicles.find(v => v.id === saved.id);
+        const vehicle = vehicles.find(v=>v.id===saved.id);
 
-        if (vehicle) {
+        if(vehicle){
 
             vehicle.status = saved.status;
+
             vehicle.notes = saved.notes || "";
-            vehicle.name = saved.name || "";
+
+            vehicle.driver = saved.driver || "";
 
         }
 
@@ -338,16 +376,15 @@ function loadData() {
 }
 
 
-
 // =========================
 // البحث
 // =========================
 
-search.addEventListener("input", function () {
+search.addEventListener("input",function(){
 
-    const value = this.value.trim();
+    const value=this.value.trim();
 
-    if (value === "") {
+    if(value===""){
 
         displayVehicles();
 
@@ -355,30 +392,15 @@ search.addEventListener("input", function () {
 
     }
 
-    const result = vehicles.filter(vehicle =>
+    const result=vehicles.filter(vehicle=>
+
         vehicle.number.includes(value)
+
     );
 
     displayVehicles(result);
 
 });
-
-
-
-// =========================
-// تعديل دالة التحقق
-// =========================
-
-// استبدل داخل checkPassword()
-// السطر:
-
-// displayVehicles();
-
-// بالسطرين التاليين:
-
-// saveData();
-// displayVehicles();
-
 
 
 // =========================
