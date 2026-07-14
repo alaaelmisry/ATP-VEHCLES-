@@ -434,24 +434,25 @@ header h1{
 
     }
 
-    .vehicle-list{
+  .vehicle-list{
 
-        grid-template-columns:repeat(auto-fill,minmax(55px,1fr));
+    grid-template-columns:1fr;
 
-        gap:4px;
+    gap:8px;
 
-    }
+}
 
-    .vehicle-card{
+.vehicle-card{
 
-        height:45px;
+    width:100%;
 
-        border-radius:6px;
+    min-height:60px;
 
-        font-size:11px;
+    border-radius:10px;
 
-    }
+    font-size:16px;
 
+}
     .vehicle-number{
 
         font-size:11px;
