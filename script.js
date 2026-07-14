@@ -382,9 +382,10 @@ function openVehicleModal(vehicle){
     selectedVehicle = vehicle;
 
 
-    modalNumber.value =
-        vehicle.number;
+   modalNumber.value =
+    vehicle.number;
 
+modalNumber.readOnly = true;
 
     modalDriver.value =
         vehicle.driver || "";
@@ -493,7 +494,13 @@ saveButton.addEventListener(
 
 
         // حفظ البيانات
+if(changeProtectedData){
 
+    modalNumber.readOnly = false;
+
+}
+
+        
         selectedVehicle.number =
             modalNumber.value.trim();
 
