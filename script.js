@@ -1,412 +1,549 @@
-// =========================
+//==================================================
+// ATP Fleet Management 3.0
+// Main Script
+//==================================================
+
+
+//==================================================
 // العناصر
-// =========================
+//==================================================
 
-const privateList = document.getElementById("privateList");
-const truckList = document.getElementById("truckList");
-const equipmentList = document.getElementById("equipmentList");
+const privateList =
+    document.getElementById("privateList");
 
-const workingCount = document.getElementById("workingCount");
-const faultCount = document.getElementById("faultCount");
+const truckList =
+    document.getElementById("truckList");
 
-const privateTotal = document.getElementById("privateTotal");
-const privateWorking = document.getElementById("privateWorking");
-const privateFault = document.getElementById("privateFault");
+const equipmentList =
+    document.getElementById("equipmentList");
 
-const truckTotal = document.getElementById("truckTotal");
-const truckWorking = document.getElementById("truckWorking");
-const truckFault = document.getElementById("truckFault");
 
-const equipmentTotal = document.getElementById("equipmentTotal");
-const equipmentWorking = document.getElementById("equipmentWorking");
-const equipmentFault = document.getElementById("equipmentFault");
+// البحث
 
-const search = document.getElementById("search");
+const search =
+    document.getElementById("search");
 
-const popup = document.getElementById("popup");
-const vehicleTitle = document.getElementById("vehicleTitle");
 
-const passwordPopup = document.getElementById("passwordPopup");
-const passwordInput = document.getElementById("passwordInput");
+// إحصائيات PRIVATE
+
+const privateTotal =
+    document.getElementById("privateTotal");
+
+const privateWorking =
+    document.getElementById("privateWorking");
+
+const privateFault =
+    document.getElementById("privateFault");
+
+
+// إحصائيات TRUCKS
+
+const truckTotal =
+    document.getElementById("truckTotal");
+
+const truckWorking =
+    document.getElementById("truckWorking");
+
+const truckFault =
+    document.getElementById("truckFault");
+
+
+// إحصائيات EQUIPMENT
+
+const equipmentTotal =
+    document.getElementById("equipmentTotal");
+
+const equipmentWorking =
+    document.getElementById("equipmentWorking");
+
+const equipmentFault =
+    document.getElementById("equipmentFault");
+
+
+// النافذة
+
+const modal =
+    document.getElementById("vehicleModal");
+
+
+const modalNumber =
+    document.getElementById("modalNumber");
+
+
+const modalDriver =
+    document.getElementById("modalDriver");
+
+
+const modalStatus =
+    document.getElementById("modalStatus");
+
+
+const modalNotes =
+    document.getElementById("modalNotes");
+
+
+const saveButton =
+    document.getElementById("saveVehicle");
+
+
+const cancelButton =
+    document.getElementById("cancelVehicle");
+
+
+// المركبة المحددة
 
 let selectedVehicle = null;
-let requestedStatus = null;
-
-
-// =========================
-// عرض المركبات
-// =========================
-
-function displayVehicles(list = vehicles){
-
-    privateList.innerHTML = "";
-    truckList.innerHTML = "";
-    equipmentList.innerHTML = "";
-
-    let working = 0;
-    let fault = 0;
-
-    let pTotal = 0;
-    let pWorking = 0;
-    let pFault = 0;
-
-    let tTotal = 0;
-    let tWorking = 0;
-    let tFault = 0;
-
-    let eTotal = 0;
-    let eWorking = 0;
-    let eFault = 0;
-
-    list.forEach(vehicle=>{
-
-        if(vehicle.status==="working")
-            working++;
-        else
-            fault++;
-
-        const card=document.createElement("div");
-
-        card.className=
-            "vehicle-card "+
-            (vehicle.status==="working"
-                ? "vehicle-working"
-                : "vehicle-fault");
-
-        const driver=
-            vehicle.driver && vehicle.driver.trim()!==""
-            ? vehicle.driver
-            : "-";
-
-        const notes=
-            vehicle.notes && vehicle.notes.trim()!==""
-            ? vehicle.notes
-            : "-";
-
-        card.innerHTML=`
-
-            <div class="vehicle-cell vehicle-number">
-                ${vehicle.number}
-            </div>
-
-            <div class="vehicle-cell vehicle-driver">
-                ${driver}
-            </div>
-
-            <div class="vehicle-cell vehicle-notes">
-                ${notes}
-            </div>
-
-        `;
-
-        card.onclick=()=>openPopup(vehicle);
-        switch(vehicle.type){
-
-            case "private":
-
-                privateList.appendChild(card);
-
-                pTotal++;
-
-                if(vehicle.status==="working")
-                    pWorking++;
-                else
-                    pFault++;
-
-                break;
-
-
-            case "truck":
-
-                truckList.appendChild(card);
-
-                tTotal++;
-
-                if(vehicle.status==="working")
-                    tWorking++;
-                else
-                    tFault++;
-
-                break;
-
-
-            case "equipment":
-
-                equipmentList.appendChild(card);
-
-                eTotal++;
-
-                if(vehicle.status==="working")
-                    eWorking++;
-                else
-                    eFault++;
-
-                break;
-
-        }
-
-    });
-
-
-    // =========================
-    // الإحصائيات العامة
-    // =========================
-
-    workingCount.textContent = working;
-    faultCount.textContent = fault;
-
-
-    // PRIVATE
-
-    privateTotal.textContent = pTotal;
-    privateWorking.textContent = pWorking;
-    privateFault.textContent = pFault;
-
-
-    // TRUCKS
-
-    truckTotal.textContent = tTotal;
-    truckWorking.textContent = tWorking;
-    truckFault.textContent = tFault;
-
-
-    // EQUIPMENTS
-
-    equipmentTotal.textContent = eTotal;
-    equipmentWorking.textContent = eWorking;
-    equipmentFault.textContent = eFault;
-
-}
-// =========================
-// فتح بطاقة المركبة
-// =========================
-
-function openPopup(vehicle){
-
-    selectedVehicle = vehicle;
-
-    vehicleTitle.textContent = vehicle.number;
-
-    popup.classList.remove("hidden");
-
-}
-
-
-// =========================
-// تعديل اسم السائق
-// =========================
-
-function editDriverName(){
-
-    let newDriver = prompt(
-
-        "أدخل اسم السائق:",
-
-        selectedVehicle.driver || ""
-
-    );
-
-    if(newDriver !== null){
-
-        selectedVehicle.driver = newDriver.trim();
-
-        saveData();
-
-        displayVehicles();
-
-    }
-
-}
-
-
-
-// =========================
-// طلب تغيير الحالة
-// =========================
-
-function requestStatusChange(status){
-
-    requestedStatus = status;
-
-    if(status === "fault"){
-
-        let reason = prompt(
-
-            "اكتب سبب توقف المركبة:",
-
-            selectedVehicle.notes || ""
-
-        );
-
-        if(reason === null)
-            return;
-
-        selectedVehicle.notes = reason.trim();
-
-    }
-
-    if(status === "working"){
-
-        selectedVehicle.notes = "";
-
-    }
-
-    passwordInput.value = "";
-
-    passwordPopup.classList.remove("hidden");
-
-}
-
-
-
-// =========================
-// تعديل الملاحظات
-// =========================
-
-function editNotes(){
-
-    let note = prompt(
-
-        "الملاحظات:",
-
-        selectedVehicle.notes || ""
-
-    );
-
-    if(note !== null){
-
-        selectedVehicle.notes = note.trim();
-
-        saveData();
-
-        displayVehicles();
-
-    }
-
-}
-// =========================
-// التحقق من الرقم السري
-// =========================
-
-function checkPassword(){
-
-    if(passwordInput.value !== "16996"){
-
-        alert("❌ الرقم السري غير صحيح");
-
-        return;
-
-    }
-
-    selectedVehicle.status = requestedStatus;
-
-    saveData();
-
-    displayVehicles();
-
-    passwordPopup.classList.add("hidden");
-
-    popup.classList.add("hidden");
-
-}
-
-
-// =========================
-// إغلاق النوافذ
-// =========================
-
-function closeVehiclePopup(){
-
-    popup.classList.add("hidden");
-
-}
-
-function closePassword(){
-
-    passwordPopup.classList.add("hidden");
-
-}
-
-
-// =========================
+//==================================================
 // حفظ البيانات
-// =========================
+//==================================================
 
 function saveData(){
 
     localStorage.setItem(
 
-        "ATP_VEHICLES",
+        "ATP_FLEET_DATA",
 
         JSON.stringify(vehicles)
 
     );
 
 }
-
-
-// =========================
-// استرجاع البيانات
-// =========================
+//==================================================
+// تحميل البيانات
+//==================================================
 
 function loadData(){
 
-    const data = localStorage.getItem("ATP_VEHICLES");
+    const data =
+        localStorage.getItem("ATP_FLEET_DATA");
 
-    if(!data) return;
 
-    const savedVehicles = JSON.parse(data);
+    if(!data)
+        return;
 
-    savedVehicles.forEach(saved=>{
 
-        const vehicle = vehicles.find(v=>v.id===saved.id);
+    const saved =
+        JSON.parse(data);
+
+
+    saved.forEach(item=>{
+
+
+        const vehicle =
+            vehicles.find(
+                v=>v.id===item.id
+            );
+
 
         if(vehicle){
 
-            vehicle.status = saved.status;
+            vehicle.driver =
+                item.driver || "";
 
-            vehicle.notes = saved.notes || "";
 
-            vehicle.driver = saved.driver || "";
+            vehicle.status =
+                item.status || "working";
+
+
+            vehicle.notes =
+                item.notes || "";
+
+
+            vehicle.updatedAt =
+                item.updatedAt || "";
 
         }
 
     });
 
 }
+//==================================================
+// عرض المركبات
+//==================================================
+
+function displayVehicles(list = vehicles){
 
 
-// =========================
-// البحث
-// =========================
+    // تفريغ القوائم
 
-search.addEventListener("input",function(){
+    privateList.innerHTML = "";
 
-    const value=this.value.trim();
+    truckList.innerHTML = "";
 
-    if(value===""){
+    equipmentList.innerHTML = "";
+
+
+
+    // إحصائيات عامة
+
+    let stats = {
+
+        private:{
+            total:0,
+            working:0,
+            fault:0
+        },
+
+        truck:{
+            total:0,
+            working:0,
+            fault:0
+        },
+
+        equipment:{
+            total:0,
+            working:0,
+            fault:0
+        }
+
+    };
+
+
+
+    // ترتيب المتوقف أولاً
+
+    list.sort((a,b)=>{
+
+        if(a.status === "fault" &&
+           b.status === "working")
+            return -1;
+
+
+        if(a.status === "working" &&
+           b.status === "fault")
+            return 1;
+
+
+        return 0;
+
+    });
+
+
+
+    list.forEach(vehicle=>{
+
+
+        // حساب الإحصائيات
+
+        stats[vehicle.type].total++;
+
+
+        if(vehicle.status === "working")
+
+            stats[vehicle.type].working++;
+
+        else
+
+            stats[vehicle.type].fault++;
+
+
+
+        // إنشاء الصف
+
+        const row =
+            document.createElement("div");
+
+
+        row.className =
+            "vehicle-row";
+
+
+
+        const statusClass =
+            vehicle.status === "working"
+            ? "status-working"
+            : "status-fault";
+
+
+
+        const notes =
+            vehicle.notes &&
+            vehicle.notes.trim() !== ""
+            ? "📝"
+            : "";
+
+
+
+        row.innerHTML = `
+
+
+            <div class="vehicle-cell">
+
+                <span class="status-dot ${statusClass}">
+                </span>
+
+            </div>
+
+
+
+            <div class="vehicle-cell vehicle-number">
+
+                ${vehicle.number}
+
+            </div>
+
+
+
+            <div class="vehicle-cell vehicle-driver">
+
+                ${vehicle.driver || "-"}
+
+            </div>
+
+
+
+            <div class="vehicle-cell vehicle-notes">
+
+                ${notes}
+
+                ${vehicle.notes || "-"}
+
+            </div>
+
+
+        `;
+
+
+
+        row.onclick = ()=>{
+
+            openVehicleModal(vehicle);
+
+        };
+
+
+
+        // إضافة للقسم الصحيح
+
+        if(vehicle.type === "private")
+
+            privateList.appendChild(row);
+
+
+
+        else if(vehicle.type === "truck")
+
+            truckList.appendChild(row);
+
+
+
+        else if(vehicle.type === "equipment")
+
+            equipmentList.appendChild(row);
+
+
+    });
+
+
+
+    // تحديث الإحصائيات
+
+    privateTotal.textContent =
+        stats.private.total;
+
+    privateWorking.textContent =
+        stats.private.working;
+
+    privateFault.textContent =
+        stats.private.fault;
+
+
+
+    truckTotal.textContent =
+        stats.truck.total;
+
+    truckWorking.textContent =
+        stats.truck.working;
+
+    truckFault.textContent =
+        stats.truck.fault;
+
+
+
+    equipmentTotal.textContent =
+        stats.equipment.total;
+
+    equipmentWorking.textContent =
+        stats.equipment.working;
+
+    equipmentFault.textContent =
+        stats.equipment.fault;
+
+
+}
+//==================================================
+// فتح نافذة تعديل المركبة
+//==================================================
+
+function openVehicleModal(vehicle){
+
+
+    selectedVehicle = vehicle;
+
+
+    modalNumber.value =
+        vehicle.number;
+
+
+    modalDriver.value =
+        vehicle.driver || "";
+
+
+    modalStatus.value =
+        vehicle.status;
+
+
+    modalNotes.value =
+        vehicle.notes || "";
+
+
+
+    modal.classList.remove("hidden");
+
+}
+
+
+
+//==================================================
+// حفظ التعديلات
+//==================================================
+
+saveButton.addEventListener(
+    "click",
+    function(){
+
+
+        if(!selectedVehicle)
+            return;
+
+
+
+        selectedVehicle.driver =
+            modalDriver.value.trim();
+
+
+
+        selectedVehicle.status =
+            modalStatus.value;
+
+
+
+        selectedVehicle.notes =
+            modalNotes.value.trim();
+
+
+
+        selectedVehicle.updatedAt =
+            new Date().toLocaleString("ar-SA");
+
+
+
+        saveData();
+
 
         displayVehicles();
 
-        return;
+
+        closeModal();
+
 
     }
-
-    const result=vehicles.filter(vehicle=>
-
-        vehicle.number.includes(value)
-
-    );
-
-    displayVehicles(result);
-
-});
+);
 
 
-// =========================
+
+//==================================================
+// إغلاق النافذة
+//==================================================
+
+cancelButton.addEventListener(
+    "click",
+    function(){
+
+        closeModal();
+
+    }
+);
+
+
+
+function closeModal(){
+
+    modal.classList.add("hidden");
+
+    selectedVehicle = null;
+
+}
+//==================================================
+// البحث
+//==================================================
+
+search.addEventListener(
+    "input",
+    function(){
+
+
+        const value =
+            this.value
+            .trim()
+            .toLowerCase();
+
+
+
+        if(value === ""){
+
+            displayVehicles();
+
+            return;
+
+        }
+
+
+
+        const result =
+            vehicles.filter(vehicle => {
+
+
+                return (
+
+                    vehicle.number
+                    .toLowerCase()
+                    .includes(value)
+
+
+                    ||
+
+                    vehicle.driver
+                    .toLowerCase()
+                    .includes(value)
+
+
+                    ||
+
+                    vehicle.notes
+                    .toLowerCase()
+                    .includes(value)
+
+                );
+
+
+            });
+
+
+
+        displayVehicles(result);
+
+
+    }
+);
+
+
+
+//==================================================
 // تشغيل النظام
-// =========================
+//==================================================
 
 loadData();
+
 
 displayVehicles();
