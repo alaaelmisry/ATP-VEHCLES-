@@ -414,17 +414,12 @@ saveButton.addEventListener(
     "click",
     function(){
 
-
         if(!selectedVehicle)
             return;
 
 
-
         let changeProtectedData = false;
 
-
-
-        // فحص رقم المركبة
 
         if(
             modalNumber.value.trim()
@@ -436,9 +431,6 @@ saveButton.addEventListener(
         }
 
 
-
-        // فحص اسم السائق
-
         if(
             modalDriver.value.trim()
             !== selectedVehicle.driver
@@ -448,9 +440,6 @@ saveButton.addEventListener(
 
         }
 
-
-
-        // فحص الحالة
 
         if(
             modalStatus.value
@@ -463,62 +452,43 @@ saveButton.addEventListener(
 
 
 
-        // طلب الرقم السري
-
         if(changeProtectedData){
 
 
             let password =
                 prompt(
-                    "🔐 أدخل الرقم السري لتعديل البيانات الأساسية"
+                "🔐 أدخل الرقم السري لتعديل البيانات الأساسية"
                 );
 
 
-
-            if(password !== ADMIN_PASSWORD){
-
+            if(password !== "16996"){
 
                 alert(
-                    "❌ الرقم السري غير صحيح"
+                "❌ الرقم السري غير صحيح"
                 );
-
 
                 return;
 
-
             }
-
 
         }
 
 
 
-        // حفظ البيانات
-if(changeProtectedData){
-
-    modalNumber.readOnly = false;
-
-}
-
-        
         selectedVehicle.number =
             modalNumber.value.trim();
 
 
-
         selectedVehicle.driver =
             modalDriver.value.trim();
-
 
 
         selectedVehicle.status =
             modalStatus.value;
 
 
-
         selectedVehicle.notes =
             modalNotes.value.trim();
-
 
 
         selectedVehicle.updatedAt =
@@ -537,47 +507,6 @@ if(changeProtectedData){
 
     }
 );
-
-
-        if(!selectedVehicle)
-            return;
-
-
-
-        selectedVehicle.driver =
-            modalDriver.value.trim();
-
-
-
-        selectedVehicle.status =
-            modalStatus.value;
-
-
-
-        selectedVehicle.notes =
-            modalNotes.value.trim();
-
-
-
-        selectedVehicle.updatedAt =
-            new Date().toLocaleString("ar-SA");
-
-
-
-        saveData();
-
-
-        displayVehicles();
-
-
-        closeModal();
-
-
-    }
-);
-
-
-
 //==================================================
 // إغلاق النافذة
 //==================================================
