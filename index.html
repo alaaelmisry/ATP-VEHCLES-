@@ -38,12 +38,13 @@
 
 </header>
 
-
 <main>
 
 <div class="categories">
 
+    <!-- ========================= -->
     <!-- PRIVATE -->
+    <!-- ========================= -->
 
     <section class="category">
 
@@ -68,12 +69,30 @@
 
         </div>
 
-        <div id="privateList" class="vehicle-list"></div>
+        <!-- رؤوس الأعمدة -->
+
+        <div class="vehicle-header">
+
+            <div>رقم المركبة</div>
+
+            <div>اسم السائق</div>
+
+            <div>الملاحظات</div>
+
+        </div>
+
+        <!-- قائمة المركبات -->
+
+        <div
+            id="privateList"
+            class="vehicle-list">
+        </div>
 
     </section>
 
-
+    <!-- ========================= -->
     <!-- TRUCKS -->
+    <!-- ========================= -->
 
     <section class="category">
 
@@ -98,12 +117,29 @@
 
         </div>
 
-        <div id="truckList" class="vehicle-list"></div>
+        <!-- رؤوس الأعمدة -->
+
+        <div class="vehicle-header">
+
+            <div>رقم المركبة</div>
+
+            <div>اسم السائق</div>
+
+            <div>الملاحظات</div>
+
+        </div>
+
+        <!-- قائمة المركبات -->
+
+        <div
+            id="truckList"
+            class="vehicle-list">
+        </div>
 
     </section>
-
-
+    <!-- ========================= -->
     <!-- EQUIPMENTS -->
+    <!-- ========================= -->
 
     <section class="category">
 
@@ -128,7 +164,24 @@
 
         </div>
 
-        <div id="equipmentList" class="vehicle-list"></div>
+        <!-- رؤوس الأعمدة -->
+
+        <div class="vehicle-header">
+
+            <div>رقم المركبة</div>
+
+            <div>اسم السائق</div>
+
+            <div>الملاحظات</div>
+
+        </div>
+
+        <!-- قائمة المعدات -->
+
+        <div
+            id="equipmentList"
+            class="vehicle-list">
+        </div>
 
     </section>
 
@@ -136,8 +189,9 @@
 
 </main>
 
-
-<!-- نافذة المركبة -->
+<!-- ========================= -->
+<!-- نافذة بيانات المركبة -->
+<!-- ========================= -->
 
 <div id="popup" class="popup hidden">
 
@@ -145,8 +199,8 @@
 
         <h2 id="vehicleTitle"></h2>
 
-        <button onclick="editVehicleName()">
-            ✏️ تعديل الاسم
+        <button onclick="editDriverName()">
+            👤 تعديل اسم السائق
         </button>
 
         <button onclick="requestStatusChange('working')">
@@ -158,7 +212,7 @@
         </button>
 
         <button onclick="editNotes()">
-            📩 سبب التوقف / ملاحظات
+            📝 تعديل الملاحظات
         </button>
 
         <button class="close" onclick="closeVehiclePopup()">
@@ -169,8 +223,9 @@
 
 </div>
 
-
+<!-- ========================= -->
 <!-- نافذة الرقم السري -->
+<!-- ========================= -->
 
 <div id="passwordPopup" class="popup hidden">
 
@@ -187,14 +242,15 @@
             دخول
         </button>
 
-        <button class="close" onclick="closePassword()">
+        <button
+            class="close"
+            onclick="closePassword()">
             إلغاء
         </button>
 
     </div>
 
 </div>
-
 
 <script src="data.js"></script>
 <script src="script.js"></script>
